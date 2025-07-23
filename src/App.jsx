@@ -1,4 +1,6 @@
 import './App.css'
+import TodoForm from './TodoForm.jsx'
+import TodoList from './TodoList.jsx'
 
 function App() {
   const todos = [
@@ -10,6 +12,8 @@ function App() {
   return (
     <div>
       <h1>My Todos</h1>
+      <TodoForm />
+      {/* <TodoList /> */}
       <ul>
         {todos.map(todo => <li key={todo.id}>{todo.title}</li>)}
       </ul>
