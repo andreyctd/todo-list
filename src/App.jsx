@@ -1,13 +1,8 @@
 import './App.css'
-import TodoForm from './TodoForm.jsx'
-import TodoList from './TodoList.jsx'
+import TodoForm from './TodoForm'
+import TodoList from './TodoList'
 
 function App() {
-  const todos = [
-    { id: 1, title: "review resources" },
-    { id: 2, title: "take notes" },
-    { id: 3, title: "code out app" },
-  ]
   
   return (
     <div>
