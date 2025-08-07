@@ -2,7 +2,7 @@ import React from 'react';
 import { useRef } from 'react';  
 
 function TodoForm({ onAddTodo }) {
-    const todoTitleInput = useRef('');            // Ref for the input field
+    const todoTitleInput = useRef(null);            // Ref for the input field
 
     function handleAddTodo(event) {
         event.preventDefault();                   // Prevent the default form submission behavior
