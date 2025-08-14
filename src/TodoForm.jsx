@@ -1,23 +1,33 @@
 import React from 'react';
-import { useRef } from 'react';  
+import { useState } from 'react';                 // Import useState hook from React
 
 function TodoForm({ onAddTodo }) {
-    const todoTitleInput = useRef(null);            // Ref for the input field
+    const [workingTodoTitle, setWorkingTodoTitle] = useState('');  // State to manage the input value
 
     function handleAddTodo(event) {
         event.preventDefault();                   // Prevent the default form submission behavior
 
-        const title = event.target.title.value;   // Get the value from the input field
-        onAddTodo(title);                         // Call the function passed via props to add the new todo
-        event.target.title.value = '';            // Clear input field after submission
-        todoTitleInput.current.focus();           // Focus back on the input field
+        {/*if (!workingTodoTitle.trim()) return;*/}     // Ignore empty submissions
+
+        onAddTodo(workingTodoTitle);              // Call the parent function to add the todo
+        setWorkingTodoTitle('');                  // Clear the input field
     }
 
     return (
       <form onSubmit={handleAddTodo}>
         <label htmlFor="todoTitle">Todo</label>
-        <input type="text" id="todoTitle" name="title" ref={todoTitleInput} />
-        <button type="submit">Add Todo</button>
+        <input                                                     // Input field for the todo title
+            type="text"                                            // Input type for text                                        
+            id="todoTitle"                                         // ID for the input field
+            name="title"                                           // Name attribute for form submission
+            value={workingTodoTitle}                               // Controlled input
+            onChange={(e) => setWorkingTodoTitle(e.target.value)}  // Update state on input change
+        />
+        <button                                                    // Button to submit the form
+            type="submit"                                          // Submit type for the button
+            disabled={workingTodoTitle.trim() === ''}>            {/* Disable button if input is empty */}
+            Add Todo
+        </button>
       </form>
     );
 }
