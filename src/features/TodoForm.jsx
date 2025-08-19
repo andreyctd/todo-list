@@ -1,8 +1,10 @@
 import React from 'react';
-import { useState } from 'react';                 // Import useState hook from React
+import { useRef, useState } from 'react';
+import TextInputWithLabel from '../shared/TextInputWithLabel';
 
 function TodoForm({ onAddTodo }) {
-    const [workingTodoTitle, setWorkingTodoTitle] = useState('');  // State to manage the input value
+  const [workingTodoTitle, setWorkingTodoTitle] = useState('');  // State to manage the input value
+  const Ref = useRef(null);                                      // Reference to the input element
 
     function handleAddTodo(event) {
         event.preventDefault();                   // Prevent the default form submission behavior
@@ -15,13 +17,12 @@ function TodoForm({ onAddTodo }) {
 
     return (
       <form onSubmit={handleAddTodo}>
-        <label htmlFor="todoTitle">Todo</label>
-        <input                                                     // Input field for the todo title
-            type="text"                                            // Input type for text                                        
-            id="todoTitle"                                         // ID for the input field
-            name="title"                                           // Name attribute for form submission
-            value={workingTodoTitle}                               // Controlled input
-            onChange={(e) => setWorkingTodoTitle(e.target.value)}  // Update state on input change
+        <TextInputWithLabel                                       
+          elementId="todoTitle"                                  // ID for the input field
+          labelText="Todo"                                       // Label for the input field
+          value={workingTodoTitle}                               // Controlled input
+          onChange={(e) => setWorkingTodoTitle(e.target.value)}  // Update state on input change
+          ref={Ref}
         />
         <button                                                    // Button to submit the form
             type="submit"                                          // Submit type for the button
