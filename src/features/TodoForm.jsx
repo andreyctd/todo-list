@@ -4,7 +4,7 @@ import TextInputWithLabel from '../shared/TextInputWithLabel';
 
 function TodoForm({ onAddTodo }) {
   const [workingTodoTitle, setWorkingTodoTitle] = useState('');  // State to manage the input value
-  const Ref = useRef(null);                                      // Reference to the input element
+  const todoTitleInput = useRef(null);                                      // Reference to the input element
 
     function handleAddTodo(event) {
         event.preventDefault();                   // Prevent the default form submission behavior
@@ -13,6 +13,7 @@ function TodoForm({ onAddTodo }) {
 
         onAddTodo(workingTodoTitle);              // Call the parent function to add the todo
         setWorkingTodoTitle('');                  // Clear the input field
+        todoTitleInput.current.focus();           // Focus the input field after submission
     }
 
     return (
@@ -22,7 +23,7 @@ function TodoForm({ onAddTodo }) {
           labelText="Todo"                                       // Label for the input field
           value={workingTodoTitle}                               // Controlled input
           onChange={(e) => setWorkingTodoTitle(e.target.value)}  // Update state on input change
-          ref={Ref}
+          ref={todoTitleInput}                                   // Attach the ref to the input element
         />
         <button                                                    // Button to submit the form
             type="submit"                                          // Submit type for the button

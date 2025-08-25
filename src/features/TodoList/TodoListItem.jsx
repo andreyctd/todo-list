@@ -1,10 +1,9 @@
-import React, { useState, useRef } from 'react';
+import { useState } from 'react';
 import TextInputWithLabel from '../../shared/TextInputWithLabel';
 
 function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {   // Component to display each todo item   
   const [isEditing, setIsEditing] = useState(false);              // State to manage editing mode
   const [workingTitle, setWorkingTitle] = useState(todo.title);   // State to manage the title being edited
-  const inputRef = useRef(null);                                  // Reference to the input element
 
   function handleEdit(event) {
     setWorkingTitle(event.target.value);
@@ -32,6 +31,8 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {   // Component t
             <TextInputWithLabel
               value={workingTitle}
               onChange={handleEdit}
+              elementId={`editTodo${todo.id}`}
+              labelText="Edit Todo"
             />
             <button
               type="button"
