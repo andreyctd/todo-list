@@ -15,6 +15,7 @@ function App() {
   useEffect(() => {
     const fetchTodos = async () => {
           setIsLoading(true);
+          setErrorMessage('');
 
           const options = {
             method: 'GET',
@@ -27,7 +28,8 @@ function App() {
             const resp = await fetch(url, options);
 
             if (!resp.ok) {
-              throw new Error(resp.message);
+              throw new Error(
+                `Request failed with status ${resp.status}: ${resp.statusText}`);
             }
 
             const data = await resp.json();
@@ -74,7 +76,7 @@ function App() {
       const resp = await fetch(url, options);
 
       if (!resp.ok) {
-        throw new Error('Failed to add todo');
+        throw new Error(`Failed to add todo: ${resp.status} ${resp.statusText}`);
       }
 
       const { records } = await resp.json();
@@ -142,7 +144,7 @@ function App() {
     try {
       const resp = await fetch(url, options);
       if (!resp.ok) {
-        throw new Error('Failed to mark todo complete');
+        throw new Error(`Failed to mark todo complete: ${resp.status} ${resp.statusText}`);
       }
     } catch (error) {
       console.error(error);
@@ -152,7 +154,7 @@ function App() {
       );
     }
   };
-  
+
   const updateTodo = async (editedTodo) => {
     const originalTodo = todoList.find((todo) => todo.id === editedTodo.id);
 
@@ -185,7 +187,7 @@ function App() {
     try {
       const resp = await fetch(url, options);
       if (!resp.ok) {
-        throw new Error('Failed to update todo');
+        throw new Error(`Failed to update todo: ${resp.status} ${resp.statusText}`);
       }
     } catch (error) {
       console.error(error);

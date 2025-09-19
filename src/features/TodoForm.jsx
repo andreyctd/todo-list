@@ -1,9 +1,10 @@
 import React from 'react';
-import { useState } from 'react';
-// import TextInputWithLabel from '../shared/TextInputWithLabel';
+import { useRef, useState } from 'react';
+import TextInputWithLabel from '../shared/TextInputWithLabel';
 
 function TodoForm({ onAddTodo, isSaving }) {
   const [workingTodoTitle, setWorkingTodoTitle] = useState('');  // State to manage the input value
+  const todoTitleInput = useRef(null);                           // Ref for the input element
 
     const handleSubmit = async (event) => {
         event.preventDefault();                   // Prevent the default form submission behavior
@@ -18,15 +19,17 @@ function TodoForm({ onAddTodo, isSaving }) {
     
         await onAddTodo(newTodo);
         setWorkingTodoTitle('');
+        todoTitleInput.current.focus();
     };
 
     return (
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+        <TextInputWithLabel
+          ref={todoTitleInput}
           value={workingTodoTitle}
           onChange={(e) => setWorkingTodoTitle(e.target.value)}
-          placeholder="Enter todo"
+          elementId="todoTitle"
+          labelText="Todo"
         />
         <button disabled={workingTodoTitle.trim() === ''}>
           {isSaving ? 'Saving...' : 'Add Todo'}
