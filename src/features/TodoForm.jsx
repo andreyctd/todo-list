@@ -2,33 +2,37 @@ import React from 'react';
 import { useRef, useState } from 'react';
 import TextInputWithLabel from '../shared/TextInputWithLabel';
 
-function TodoForm({ onAddTodo }) {
+function TodoForm({ onAddTodo, isSaving }) {
   const [workingTodoTitle, setWorkingTodoTitle] = useState('');  // State to manage the input value
-  const todoTitleInput = useRef(null);                                      // Reference to the input element
+  const todoTitleInput = useRef(null);                           // Ref for the input element
 
-    function handleAddTodo(event) {
+    const handleSubmit = async (event) => {
         event.preventDefault();                   // Prevent the default form submission behavior
 
-        {/*if (!workingTodoTitle.trim()) return;*/}     // Ignore empty submissions
-
-        onAddTodo(workingTodoTitle);              // Call the parent function to add the todo
-        setWorkingTodoTitle('');                  // Clear the input field
-        todoTitleInput.current.focus();           // Focus the input field after submission
-    }
+      const trimmedTitle = workingTodoTitle.trim();
+      if (!trimmedTitle) return;
+    
+        const newTodo = {
+          title: trimmedTitle,
+          isCompleted: false,
+        };
+    
+        await onAddTodo(newTodo);
+        setWorkingTodoTitle('');
+        todoTitleInput.current.focus();
+    };
 
     return (
-      <form onSubmit={handleAddTodo}>
-        <TextInputWithLabel                                       
-          elementId="todoTitle"                                  // ID for the input field
-          labelText="Todo"                                       // Label for the input field
-          value={workingTodoTitle}                               // Controlled input
-          onChange={(e) => setWorkingTodoTitle(e.target.value)}  // Update state on input change
-          ref={todoTitleInput}                                   // Attach the ref to the input element
+      <form onSubmit={handleSubmit}>
+        <TextInputWithLabel
+          ref={todoTitleInput}
+          value={workingTodoTitle}
+          onChange={(e) => setWorkingTodoTitle(e.target.value)}
+          elementId="todoTitle"
+          labelText="Todo"
         />
-        <button                                                    // Button to submit the form
-            type="submit"                                          // Submit type for the button
-            disabled={workingTodoTitle.trim() === ''}>            {/* Disable button if input is empty */}
-            Add Todo
+        <button disabled={workingTodoTitle.trim() === ''}>
+          {isSaving ? 'Saving...' : 'Add Todo'}
         </button>
       </form>
     );
