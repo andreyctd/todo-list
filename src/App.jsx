@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import TodoForm from './features/TodoForm';
 import TodosViewForm from './features/TodosViewForm';
@@ -6,18 +6,6 @@ import TodoList from './features/TodoList/TodoList';
 
 // Base URL without query params
 const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
-
-// Function to encode URL with sorting parameters
-const encodeUrl = ({ sortField, sortDirection, queryString }) => {
-  let sortQuery = `sort[0][field]=${sortField}&sort[0][direction]=${sortDirection}`;
-  let searchQuery = '';
-
-    if (queryString) {
-      searchQuery = `&filterByFormula=SEARCH("${queryString}", title)`;
-    }
-  
-  return encodeURI(`${url}?${sortQuery}${searchQuery}`);
-};
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -29,6 +17,18 @@ function App() {
   const [sortField, setSortField] = useState('createdTime');
   const [sortDirection, setSortDirection] = useState('desc');
   const [queryString, setQueryString] = useState('');
+
+  // Function to construct the full URL with query parameters
+  const encodeUrl = useCallback(() => {
+    let sortQuery = `sort[0][field]=${sortField}&sort[0][direction]=${sortDirection}`;
+    let searchQuery = '';
+
+    if (queryString) {
+      searchQuery = `&filterByFormula=SEARCH("${queryString}", title)`;
+    }
+
+    return encodeURI(`${url}?${sortQuery}${searchQuery}`);
+  }, [sortField, sortDirection, queryString]);
 
   // const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
   const token = `Bearer ${import.meta.env.VITE_PAT}`;
@@ -46,7 +46,7 @@ function App() {
       };
 
       try {
-        const resp = await fetch(encodeUrl({ sortField, sortDirection, queryString }), options);
+        const resp = await fetch(encodeUrl(), options);
 
         if (!resp.ok) {
           throw new Error(
@@ -70,7 +70,7 @@ function App() {
       }
     };
     fetchTodos();
-  }, [sortField, sortDirection, queryString, token]);
+  }, [encodeUrl, token]);
 
   const addTodo = async (newTodo) => {
     const payload = {
@@ -95,7 +95,7 @@ function App() {
     try {
       setIsSaving(true);
 
-      const resp = await fetch(encodeUrl({ sortField, sortDirection, queryString }), options);
+      const resp = await fetch(encodeUrl(), options);
 
       if (!resp.ok) {
         throw new Error(
@@ -152,7 +152,7 @@ function App() {
     };
 
     try {
-      const resp = await fetch(encodeUrl({ sortField, sortDirection, queryString }), options);
+      const resp = await fetch(encodeUrl(), options);
       if (!resp.ok) {
         throw new Error(
           `Failed to mark todo complete: ${resp.status} ${resp.statusText}`
@@ -197,7 +197,7 @@ function App() {
     };
 
     try {
-      const resp = await fetch(encodeUrl({ sortField, sortDirection, queryString }), options);
+      const resp = await fetch(encodeUrl(), options);
       if (!resp.ok) {
         throw new Error(
           `Failed to update todo: ${resp.status} ${resp.statusText}`

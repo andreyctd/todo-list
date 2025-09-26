@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-function TodosViewForm({ sortField, setSortField, sortDirection, setSortDirection, queryString, setQueryString }) {
+function TodosViewForm({
+  sortField, setSortField, sortDirection, setSortDirection, queryString, setQueryString
+}) {
+
+  // Local input state for debouncing
+  const [localQueryString, setLocalQueryString] = useState(queryString);
+
   // Prevent form submit from refreshing the page
   const preventRefresh = (event) => {
     event.preventDefault();
   };
+
+  // Debounce effect: wait 500ms after typing stops to update queryString in App
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      setQueryString(localQueryString);
+    }, 500);                                // Adjust the delay as needed
+
+    return () => clearTimeout(debounce);    // Cancel timeout if user keeps typing
+  }, [localQueryString, setQueryString]);   // Only re-run if localQueryString changes
 
   return (
     <form onSubmit={preventRefresh}>
@@ -14,10 +29,10 @@ function TodosViewForm({ sortField, setSortField, sortDirection, setSortDirectio
         <input
           type="text"
           id="search"
-          value={queryString}
-          onChange={(e) => setQueryString(e.target.value)}
+          value={localQueryString}
+          onChange={(e) => setLocalQueryString(e.target.value)}
         />
-        <button type="button" onClick={() => setQueryString('')}>
+        <button type="button" onClick={() => setLocalQueryString('')}>
           Clear
         </button>
       </div>
