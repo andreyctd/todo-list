@@ -1,0 +1,28 @@
+.appContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #333;
+    padding-top: 1rem;
+    font-family: Arial, sans-serif;
+    margin: 20px 20px;
+}   
+
+/* Optional: Add semi-transparent background to inner content for readability */
+.appContent {
+  background-color: rgba(200, 150, 150);
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+errorMessage {
+    border: 1px solid #e57373;
+    background-color: #ffcdd2;
+    padding: 10px;
+    border-radius: 4px;
+    color: red;
+    margin-top: 10px;
+}
