@@ -1,0 +1,76 @@
+.todoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 0px solid #eee;
+  font-family: Arial, sans-serif;
+  color: #333;
+  padding-bottom: 0.75rem;
+}
+
+/* .todoItem:hover {
+} */
+
+.checkbox {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.todoTitle {
+  flex-grow: 1;
+  cursor: pointer;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.formActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.updateForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+/* .todoItem form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.todoItem input[type="checkbox"] {
+  margin-right: 15px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.todoItem span {
+  flex-grow: 1;
+  font-size: 18px;
+} */
+ 
+.todoItem button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  text-align: center;
+}
+.todoItem button:hover {
+  background-color: #0056b3;
+}
+.todoItem button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

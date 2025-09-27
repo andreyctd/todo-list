@@ -1,0 +1,79 @@
+/* Base / Global styles */
+body, #root {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background-color: #f9e5e5;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* Text Input styles */
+input[type="text"], input[type="search"], textarea {
+    font-family: inherit;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    font-size: 16px;
+}
+
+input[type="text"]:focus, input[type="search"]:focus, textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* Buttons styles */ 
+button {
+    font-family: inherit;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Utility Classes */
+.error-message {
+    color: #e74c3c;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 1rem;
+    border: 1px solid #e74c3c;
+    background-color: #fceaea;
+    border-radius: 4px;
+}
