@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import './App.css';
+import styles from './App.module.css';
 import TodoForm from './features/TodoForm';
 import TodosViewForm from './features/TodosViewForm';
 import TodoList from './features/TodoList/TodoList';
@@ -215,38 +216,49 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>My Todos</h1>
-      <TodoForm
-        onAddTodo={addTodo}
-        isSaving={isSaving}
-        setIsSaving={setIsSaving}
-      />
-      <TodoList
-        todoList={todoList}
-        onCompleteTodo={completeTodo}
-        onUpdateTodo={updateTodo}
-        isLoading={isLoading}
-      />
+    <div className={styles.appContainer}>
+      <div className={styles.appContent}>
+        <h1>My Todos</h1>
+        <TodoForm
+          onAddTodo={addTodo}
+          isSaving={isSaving}
+          setIsSaving={setIsSaving}
+        />
+        <TodoList
+          todoList={todoList}
+          onCompleteTodo={completeTodo}
+          onUpdateTodo={updateTodo}
+          isLoading={isLoading}
+        />
 
-      <hr />
+        <hr />
 
-      <TodosViewForm
-        sortField={sortField}
-        setSortField={setSortField}
-        sortDirection={sortDirection}
-        setSortDirection={setSortDirection}
-        queryString={queryString}
-        setQueryString={setQueryString}
-      />
+        <TodosViewForm
+          sortField={sortField}
+          setSortField={setSortField}
+          sortDirection={sortDirection}
+          setSortDirection={setSortDirection}
+          queryString={queryString}
+          setQueryString={setQueryString}
+        />
 
-      {errorMessage && (
-        <div className="error-message">
-          <hr />
-          <p>{errorMessage}</p>
-          <button onClick={() => setErrorMessage('')}>Dismiss</button>
-        </div>
-      )}
+        {errorMessage && (
+          <div className={styles.errorMessage}>
+            <hr />
+            <p>
+              <span
+                role="img"
+                aria-label="error"
+                style={{ marginRight: '0.5rem' }}
+              >
+                ❗⚠️❗
+              </span>
+              {errorMessage}
+            </p>
+            <button onClick={() => setErrorMessage('')}>Dismiss</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
