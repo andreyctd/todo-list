@@ -22,6 +22,11 @@ export const actions = {          // found in addTodo and in useEffect that load
 
   // action on Dismiss Error button
   clearError: 'clearError',
+  
+  // actions for sort and search
+    setSortField: 'setSortField',
+    setSortDirection: 'setSortDirection',
+    setQueryString: 'setQueryString',
 };
 
 // Export initial state for todos reducer
@@ -30,6 +35,9 @@ export const initialState = {
   isLoading: false,
   isSaving: false,
   errorMessage: '',
+  sortDirection: 'asc',
+  sortField: 'title',
+  queryString: '',
 };
 
 // Create reducer function
@@ -134,6 +142,26 @@ export function reducer(state = initialState, action) {
           errorMessage: '',
       };
 
+    // === UI actions: sort and search ===
+    case actions.setSortField:
+      return {
+        ...state,
+        sortField: action.value,
+      };
+
+    case actions.setSortDirection:
+      return {
+        ...state,
+        sortDirection: action.value,
+      };
+
+    case actions.setQueryString:
+      return {
+        ...state,
+        queryString: action.value,
+      };
+
+    // === default ===
     default:
       return state;
   }

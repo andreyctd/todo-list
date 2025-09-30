@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useReducer } from 'react';
+import { useEffect, useCallback, useReducer } from 'react';
 import './App.css';
 import styles from './App.module.css';
 import TodoForm from './features/TodoForm';
@@ -24,12 +24,13 @@ function App() {
   const [todoState, dispatch] = useReducer(todosReducer, initialTodosState);
 
   // Destructure state for cleaner usage
-  const { todoList, isLoading, errorMessage, isSaving } = todoState;
+  const { todoList, isLoading, errorMessage, isSaving, sortField, sortDirection, queryString, 
+  } = todoState;
 
-  // New state for Airtable sorting parameters
+  /*   // New state for Airtable sorting parameters
   const [sortField, setSortField] = useState('createdTime');
   const [sortDirection, setSortDirection] = useState('desc');
-  const [queryString, setQueryString] = useState('');
+  const [queryString, setQueryString] = useState('');   */
 
   // Function to construct the full URL with query parameters
   const encodeUrl = useCallback(() => {
@@ -290,11 +291,11 @@ function App() {
 
         <TodosViewForm
           sortField={sortField}
-          setSortField={setSortField}
+          setSortField={(value) => dispatch({ type: todoActions.setSortField, value })}
           sortDirection={sortDirection}
-          setSortDirection={setSortDirection}
+          setSortDirection={(value) => dispatch({ type: todoActions.setSortDirection, value })}
           queryString={queryString}
-          setQueryString={setQueryString}
+          setQueryString={(value) => dispatch({ type: todoActions.setQueryString, value })}
         />
 
         {errorMessage && (
