@@ -35,8 +35,8 @@ export const initialState = {
   isLoading: false,
   isSaving: false,
   errorMessage: '',
-  sortDirection: 'asc',
-  sortField: 'title',
+  sortDirection: 'desc',
+  sortField: 'createdTime',
   queryString: '',
 };
 

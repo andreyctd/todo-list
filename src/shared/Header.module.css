@@ -1,0 +1,23 @@
+.header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.active {
+    color: black;
+    text-decoration: underline;
+}
+
+.inactive {
+    color: black;
+    text-decoration: underline;
+}
