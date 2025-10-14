@@ -9,7 +9,7 @@ import {
   actions as todoActions,
   initialState as initialTodosState,
 } from './reducers/todos.reducer';
-import { Routes, Route, useLocation } from 'react-router';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './shared/Header';
 import TodosPage from './pages/TodosPage';
 import About from './pages/About';
