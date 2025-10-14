@@ -13,8 +13,8 @@
 /* Optional: Add semi-transparent background to inner content for readability */
 .appContent {
   background-color: rgba(200, 150, 150);
-  padding: 2rem;
-  max-width: 600px;
+  padding: 10rem;
+  max-width: 1200px;
   width: 100%;
 }
 
